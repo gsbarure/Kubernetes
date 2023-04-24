@@ -14,7 +14,9 @@ containerd will get installed automatically once we install docker.
 
 Below commands to start docker & enable docker to starts services start when the system boots.
 
+sudo systemctl start docker
 
+sudo systemctl enable docker
 
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 
