@@ -1,0 +1,81 @@
+Kubernetes Installations and Configurations:
+
+Steps:
+
+Create two EC2 servers
+
+1.Master(t2 medium as it has everything to manage like API/control Managers/etcd/scheduler)
+
+2.Worker(t2 micro)
+
+Master and Worker Node:(Below commands has to be issued on both Master/worker node)
+
+containerd will get installed automatically once we install docker.
+
+Below commands to start docker & enable docker to starts services start when the system boots.
+
+
+
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt update -y
+
+sudo apt install kubeadm=1.20.0-00 kubectl=1.20.0-00 kubelet=1.20.0-00 -y
+
+Lets make a Master server:
+
+Be a root user----sudo su
+
+kubeadm init ----kubeadm to set up a cluster
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+mkdir -p $HOME/.kube
+
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+export KUBECONFIG=/etc/kubernetes/admin.conf
+
+cat /etc/kubernetes/admin.conf---This path we can see Cluster name,version,
+
+Ip,Client key etc.
+
+Create token to connect with worker
+
+Worker Node:
+
+sudo su
+
+kubeadm reset pre-flight checks
+
+kubeadm reset
+
+Performs a best effort revert of changes made by kubeadm init or kubeadm join.
+
+Performs a best effort revert of changes made to this host by 'kubeadm init' or 'kubeadm join
+
+This token is to connect with worker.
+
+kubeadm join 172.31.92.240:6443 --token waqwo3.x57hmkg1tiq2capy --discovery-token-ca-cert-hash sha256:d8fcd0ce60a2e756cf0a4c14fbfa23246313f5f36e40fc5668695652d6030081 --v=5
+
+kubectl get nodes---Kubectl get nodes” is a command to retrieve information about nodes in a Kubernetes cluster. This information includes the node’s name, role, and status. The command can also get the list of nodes in a cluster and specific information about a node.
+
+run nginx --image=nginx --restart=Never
+
+kubectl get pod
+
+A pod is the smallest execution unit in Kubernetes. A pod encapsulates one or more applications. Pods are ephemeral by nature, if a pod (or the node it executes on) fails, Kubernetes can automatically create a new replica of that pod to continue operations. Pods include one or more containers (such as Docker containers).
+
+After connecting with worker node: kubectl get nodes
+
+As we ran NGINX image on Master node.
+
+docker ps in worker node to check status of running container.
