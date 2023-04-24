@@ -1,0 +1,81 @@
+Install minikube on your local
+
+for installation please visit:https://minikube.sigs.k8s.io/docs/start/
+
+Visit this webiste and select respetive os.
+
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+minikube start
+
+So when you give above command it will throw below error as it needs driver to run i.e.docker so need to install docker
+
+Visit this site:https://docs.docker.com/engine/install/ubuntu/
+
+Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+
+$ sudo apt-get update
+
+$ sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg
+
+Add Docker’s official GPG key:
+
+$ sudo install -m 0755 -d /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+$ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+Use the following command to set up the repository:
+
+$ echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+Install Docker Engine
+
+Update the apt package index:
+
+$ sudo apt-get update
+
+Install Docker Engine, containerd, and Docker Compose.
+
+Latest Specific version To install the latest version, run:
+
+
+docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo snap install kubectl
+
+sudo snap install kubectl --classic
+
+kubectl get po -A
+
+minikube status
+
+kubectl get node
+
+Here is MINIKUBE:
+
+Task-02:
+
+Create your first pod on Kubernetes through minikube.
+
+NGINX pod creation on Minikube:
+
+Create pod.yml for NGINX
+
+Note:
+
+# After creating this file , run below command:
+
+# kubectl apply -f <yaml file name>
+
+Troubleshootings/errors:
+
+if minikube start --driver=docker command is not working issue minikube start --force
+
+If this error occurs exit and login back sudo -i
